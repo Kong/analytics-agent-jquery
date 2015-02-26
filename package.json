@@ -5,7 +5,7 @@
   "main": "dist/js/jquery.analytics.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Mashape/analytics-agent-jquery.git"
+    "url": "git://github.com/Mashape/analytics-agent-jquery.git"
   },
   "directories": {
     "test": "test"
