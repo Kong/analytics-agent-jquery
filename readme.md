@@ -45,8 +45,8 @@ Copyright Mashape Inc, 2015.
 Licensed under [the MIT License][license].
 
 [npm]: https://www.npmjs.com/package/jquery-analytics
-[repo]: https://github.com/mashape/analytics-agent-jquery
+[repo]: https://github.com/Mashape/analytics-agent-jquery
 [david]: https://david-dm.org/mashape/analytics-agent-jquery#info=devDependencies
-[travis]: https://travis-ci.org/mashape/analytics-agent-jquery
+[travis]: https://travis-ci.org/Mashape/analytics-agent-jquery
 [release]: https://github.com/mashape/analytics-agent-jquery/releases "Download Mashape jQuery API Analytics Agent"
 [license]: https://github.com/mashape/analytics-agent-jquery/blob/master/LICENSE
