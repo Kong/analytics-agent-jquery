@@ -1,0 +1,39 @@
+{
+  "name": "jquery-analytics",
+  "version": "1.0.0",
+  "authors": [
+    "Nijiko Yonskai <nijikokun@gmail.com>"
+  ],
+  "description": "jQuery Agent for Mashape Analytics",
+  "main": "dist/js/jquery.analytics.js",
+  "moduleType": [
+    "amd",
+    "node",
+    "globals"
+  ],
+  "keywords": [
+    "jquery-plugin",
+    "analytics",
+    "mashape",
+    "jquery",
+    "agent",
+    "apianalytics",
+    "api",
+    "ajax",
+    "request",
+    "response"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "src"
+  ],
+  "dependencies": {
+    "jquery": ">1.7.0",
+    "assert": "~0.1.0"
+  }
+}

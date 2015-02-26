@@ -1,0 +1,66 @@
+{
+  "name": "jquery-analytics",
+  "version": "1.0.0",
+  "description": "jQuery Agent for Mashape Analytics",
+  "main": "dist/js/jquery.analytics.js",
+  "directories": {
+    "test": "test"
+  },
+  "files": [
+    "dist",
+    "js",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery",
+    "jquery",
+    "analytics",
+    "agent",
+    "apianalytics",
+    "api",
+    "mashape",
+    "ajax",
+    "request",
+    "response"
+  ],
+  "author": "Nijiko Yonskai <nijiko@mashape.com>",
+  "license": "MIT",
+  "spm": {
+    "main": "dist/js/jquery.analytics.js",
+    "ignore": [
+      "test",
+      "src",
+      ".gitignore",
+      "bower.json",
+      "composer.json"
+    ]
+  },
+  "dependencies": {
+    "jquery": ">1.7.0"
+  },
+  "devDependencies": {
+    "del": "^1.1.1",
+    "github-release": "^0.2.0",
+    "gulp": "^3.8.11",
+    "gulp-jshint": "^1.9.2",
+    "gulp-mocha": "^2.0.0",
+    "gulp-mocha-phantomjs": "^0.5.3",
+    "gulp-plumber": "^0.6.6",
+    "gulp-release": "0.0.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-replace": "^0.5.3",
+    "gulp-uglify": "^1.1.0",
+    "gulp-zip": "^2.0.3",
+    "jasmine-jquery": "^2.0.6",
+    "jsdom": "^3.1.2",
+    "jshint-stylish": "^1.0.1",
+    "map-stream": "0.0.5",
+    "mocha": "^2.1.0",
+    "mocha-sinon": "^1.1.4",
+    "sinon": "^1.12.2"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "asi": true,
+  "boss": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "latedef": true,
+  "laxbreak": true,
+  "newcap": false,
+  "noarg": true,
+  "node": true,
+  "quotmark": "single",
+  "strict": false,
+  "undef": true,
+  "unused": "vars",
+  "globals": {
+    "assert": true,
+    "sinon": true,
+    "define": true,
+    "jQuery": true,
+    "document": true,
+    "window": true,
+    "describe": true,
+    "it": true,
+    "doc": true,
+    "afterEach": true
+  }
+}
