@@ -3,7 +3,7 @@
 [![Bower version](https://img.shields.io/bower/v/jquery-analytics.svg?style=flat)][repo]
 [![npm version](https://img.shields.io/npm/v/jquery-analytics.svg?style=flat)][npm]
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)][license]
-[![Build Status](https://travis-ci.org/mashape/analytics-agent-jquery.svg)][travis]
+[![Build Status](https://travis-ci.org/Mashape/analytics-agent-jquery.svg)][travis]
 [![devDependency Status](https://david-dm.org/mashape/analytics-agent-jquery/dev-status.svg)][david]
 
 ## Quick start
