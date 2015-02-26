@@ -6,7 +6,7 @@ var rename = require('gulp-rename')
 var replace = require('gulp-replace')
 var mocha = require('gulp-mocha-phantomjs')
 var zip = require('gulp-zip')
-var release = require('gulp-release')
+var release = require('github-release')
 
 var src = 'src/jquery.analytics.js'
 var dist = 'dist/'
