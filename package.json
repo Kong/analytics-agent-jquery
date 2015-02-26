@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "jQuery Agent for Mashape Analytics",
   "main": "dist/js/jquery.analytics.js",
+  "repository": "Mashape/analytics-agent-jquery",
   "directories": {
     "test": "test"
   },
