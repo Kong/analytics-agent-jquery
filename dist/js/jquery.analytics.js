@@ -8,7 +8,7 @@
  * https://github.com/Mashape/analytics-jquery-agent/blob/master/LICENSE
  *
  * @version 1.0.0
- * @date Tue Feb 24 2015 21:42:22 GMT-0800 (PST)
+ * @date Wed Feb 25 2015 18:10:10 GMT-0800 (PST)
  */
 
 (function (factory) {
