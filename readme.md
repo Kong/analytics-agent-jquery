@@ -33,7 +33,7 @@ $.Analytics('Place Service Token Here')
 
 Done. Now every global ajax request will be logged in API Analytics.
 
-## Min Requirements
+## Requirements
 
 - jQuery `1.7+`
 - API Analytics `Service Token`
