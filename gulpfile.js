@@ -44,13 +44,8 @@ gulp.task('build', ['clean'], function () {
 gulp.task('archive', function () {
   return gulp.src(dist + '**/*')
     .pipe(zip(pkg.name + '-v' + pkg.version + '-dist.zip'))
-    .pipe(gulp.dest('dist'));
-});
-
-gulp.task('release', function(){
-  return gulp.src(dist + pkg.name + '-v' + pkg.version + '-dist.zip')
-    .pipe(release(pkg));
-});
+    .pipe(gulp.dest('dist'))
+})
 
 gulp.task('tests', ['lint'], function () {
   return test()

@@ -48,7 +48,6 @@
   },
   "devDependencies": {
     "del": "^1.1.1",
-    "github-release": "^0.2.0",
     "gulp": "^3.8.11",
     "gulp-jshint": "^1.9.2",
     "gulp-mocha": "^2.0.0",
