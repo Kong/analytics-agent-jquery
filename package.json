@@ -12,7 +12,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node_modules/gulp/bin/gulp test"
+    "test": "./node_modules/gulp/bin/gulp.js test"
   },
   "keywords": [
     "jquery-plugin",
