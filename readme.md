@@ -14,6 +14,11 @@
 - Install with [npm](https://www.npmjs.com): `npm install jquery-analytics`.
 - Install with [SPM](http://spmjs.io): `spm install jquery-analytics`.
 
+## Requirements
+
+- jQuery `1.7+`
+- API Analytics `Service Token`
+
 ### What's included
 
 ```
@@ -28,15 +33,27 @@ analytics-agent-jquery/
 Include `jQuery Analytics` after `jQuery`.
 
 ```js
+// Basic usage
 $.Analytics('Place Service Token Here')
+
+// Advanced usage
+$.Analytics('Token', {
+  ... options ...
+})
 ```
 
 Done. Now every global ajax request will be logged in API Analytics.
 
-## Requirements
+## Options
 
-- jQuery `1.7+`
-- API Analytics `Service Token`
+- `serviceToken` - API Analytics service token, optional, only required when token is not first argument.
+- `analyticsHost` - API Analytics hostname, defaults to `http://socket.apianalytics.com/`
+- `httpVersion` - HTTP Version, defaults to `HTTP/1.1`
+- `fallbackIp` - Fallback IP for Client / Server when not fetched, defaults to `127.0.0.1`
+- `hostname` - Server hostname, defaults to `window.location.hostname`
+- `fetchServerIp` - Flag to disable fetching server A Record, defaults to `true`
+- `fetchClientIp` - Flat to disable fetching client address, defaults to `true`
+- `debug` - Debug mode
 
 ## Copyright and license
 

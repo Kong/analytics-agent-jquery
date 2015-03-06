@@ -1,6 +1,6 @@
 {
   "name": "jquery-analytics",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "jQuery Agent for Mashape Analytics",
   "main": "dist/js/jquery.analytics.js",
   "repository": {

@@ -30,7 +30,7 @@ describe('jquery.analytics.js', function () {
     assert(analytics.serviceToken === 'token')
   })
 
-  it('should not request ClientIP when flag is set to false', function () {
+  it('should not request CLIENT IP when flag is set to false', function () {
     sinon.stub(jQuery, 'ajax')
 
     jQuery.Analytics({
@@ -41,11 +41,36 @@ describe('jquery.analytics.js', function () {
     assert(!jQuery.ajax.called)
   })
 
-  it('should not request ClientIP when flag is set to true', function () {
+  it('should request CLIENT IP when flag is set to true', function () {
     sinon.stub(jQuery, 'ajax')
 
     jQuery.Analytics({
       serviceToken: 'token'
+    })
+
+    assert(jQuery.ajax.called)
+  })
+
+  it('should not request SERVER IP when flag is set to false', function () {
+    sinon.stub(jQuery, 'ajax')
+
+    jQuery.Analytics({
+      serviceToken: 'token',
+      fetchClientIp: false,
+      fetchServerIp: false
+    })
+
+    assert(!jQuery.ajax.called)
+  })
+
+  it('should request SERVER IP when flag is set to true', function () {
+    sinon.stub(jQuery, 'ajax')
+
+    jQuery.Analytics({
+      serviceToken: 'token',
+      fetchClientIp: false,
+      fetchServerIp: true,
+      hostname: 'mashape.com'
     })
 
     assert(jQuery.ajax.called)

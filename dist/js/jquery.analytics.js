@@ -7,8 +7,8 @@
  * Released under the MIT license
  * https://github.com/Mashape/analytics-jquery-agent/blob/master/LICENSE
  *
- * @version 1.0.0
- * @date Wed Feb 25 2015 18:10:10 GMT-0800 (PST)
+ * @version 1.1.0
+ * @date Thu Mar 05 2015 20:02:10 GMT-0800 (PST)
  */
 
 (function (factory) {
@@ -25,18 +25,18 @@
 
   // Default Constants
   var PLUGIN_NAME = 'Analytics'
-  var PLUGIN_VERSION = '1.0.0'
+  var PLUGIN_VERSION = '1.1.0'
   var PLUGIN_AGENT_NAME = 'jQuery Analytics Agent'
   var ANALYTICS_HOST = 'http://socket.apianalytics.com/'
   var FALLBACK_IP = '127.0.0.1'
   var HTTP_VERSION = 'HTTP/1.1'
+  var TOKEN = 'SKIjLjUcjBmshb733ZqAGiNYu6Qvp1Ue0XGjsnYZRXaI8y1U4O'
   var DEBUG = false
+  var READY = false
 
   // Globals
   var $document = jQuery(document)
-
-  // Log related Globals
-  var clientIp = FALLBACK_IP
+  var queue = []
 
   /**
    * Plugin constructor
@@ -53,37 +53,100 @@
 
     // Service token
     this.serviceToken = token
+    this.clientIp = options.clientIp || FALLBACK_IP
+    this.serverIp = options.serverIp || FALLBACK_IP
+    this.hostname = options.hostname || (window ? (window.location ? window.location.hostname : false) : false)
     this.fetchClientIp = typeof options.fetchClientIp === 'undefined' ? true : options.fetchClientIp
+    this.fetchServerIp = typeof options.fetchServerIp === 'undefined' ? true : options.fetchServerIp
 
     // Initialize
     this.init()
   }
 
-  /**
-   * Returns client ip
-   *
-   * @return {String}
-   */
-  Plugin.getClientIp = function () {
-    return clientIp
-  }
-
   // Extend
   jQuery.extend(Plugin.prototype, {
     init: function () {
+      var self = this
+
+      this.getClientIp(function () {
+        self.getServerIp(function () {
+          self.onReady()
+        })
+      })
+
+      $document.ajaxSend(this.onSend.bind(this))
+      $document.ajaxComplete(this.onComplete.bind(this))
+    },
+
+    getServerIp: function (next) {
+      var url = 'https://statdns.p.mashape.com/' + this.hostname + '/a?mashape-key=' + TOKEN
+      var self = this
+
+      if (this.fetchServerIp && typeof this.hostname === 'string' && this.hostname.length !== 0) {
+        return jQuery.ajax({
+          url: url,
+          type: 'GET',
+          global: false,
+
+          success: function (data) {
+            self.serverIp = data.answer[0].rdata
+          },
+
+          complete: function () {
+            next()
+          }
+        })
+      } else {
+        return next();
+      }
+    },
+
+    getClientIp: function (next) {
+      var self = this
+
       if (this.fetchClientIp) {
-        jQuery.ajax({
+        return jQuery.ajax({
           url: 'http://httpbin.org/ip',
           type: 'GET',
           global: false,
           success: function (data) {
-            clientIp = data.origin
+            self.clientIp = data.origin
+          },
+
+          complete: function () {
+            next()
           }
         })
       }
 
-      $document.ajaxSend(this.onSend.bind(this))
-      $document.ajaxComplete(this.onComplete.bind(this))
+      next();
+    },
+
+    onReady: function () {
+      if (!queue) {
+        return
+      }
+
+      var entry;
+
+      // System is ready to send alfs
+      READY = true
+
+      // Send queued alfs
+      for (var i = 0, length = queue.length; i < length; i++) {
+        // Obtain entry
+        entry = queue[i]
+
+        // Update addresses
+        entry.alf.output.har.log.entries[0].serverIpAddress = this.serverIp
+        entry.alf.output.har.log.entries[0].clientIpAddress = this.clientIp
+
+        // Send
+        entry.alf.send(entry.options)
+      }
+
+      // Clear queue
+      queue = null
     },
 
     onSend: function (event, xhr, options) {
@@ -93,6 +156,8 @@
     },
 
     onComplete: function (event, xhr, options, data) {
+      var self = this
+
       // Start new alf object
       var alf = new Plugin.Alf(this.serviceToken, {
         name: PLUGIN_AGENT_NAME,
@@ -146,8 +211,8 @@
       // Insert entry
       alf.entry({
         startedDateTime: new Date(start).toISOString(),
-        serverIpAddress: FALLBACK_IP,
-        clientIpAddress: Plugin.getClientIp(),
+        serverIpAddress: self.serverIp,
+        clientIpAddress: self.clientIp,
         time: difference,
         request: {
           method: options.type,
@@ -177,12 +242,17 @@
         }
       })
 
-      // DEBUG
       if (DEBUG) {
-        options._alf = alf
-        alf.send(options)
+        options._alf = alf;
+      }
+
+      if (!READY) {
+        queue.push({
+          options: DEBUG ? options : undefined,
+          alf: alf
+        })
       } else {
-        alf.send()
+        alf.send(DEBUG ? options : undefined)
       }
     }
   })
