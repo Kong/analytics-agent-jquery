@@ -6,7 +6,7 @@
 [![Build Status](https://travis-ci.org/Mashape/analytics-agent-jquery.svg)][travis]
 [![devDependency Status](https://david-dm.org/mashape/analytics-agent-jquery/dev-status.svg)][david]
 
-The API Analytics jQuery agent reports API traffic passing through jQuery ajax calls.
+The API Analytics jQuery agent reports API traffic passing through jQuery ajax calls. Works in all browsers where jQuery is supported and Node.js
 
 ## Quick start
 
