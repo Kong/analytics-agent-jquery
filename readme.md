@@ -6,6 +6,8 @@
 [![Build Status](https://travis-ci.org/Mashape/analytics-agent-jquery.svg)][travis]
 [![devDependency Status](https://david-dm.org/mashape/analytics-agent-jquery/dev-status.svg)][david]
 
+The API Analytics jQuery agent reports API traffic passing through jQuery ajax calls.
+
 ## Quick start
 
 - [Download the latest release][release].
@@ -17,7 +19,7 @@
 ## Requirements
 
 - jQuery `1.7+`
-- API Analytics `Service Token`
+- API Analytics Service Token `SERVICE_TOKEN`
 
 ### What's included
 
@@ -34,15 +36,15 @@ Include `jQuery Analytics` after `jQuery`.
 
 ```js
 // Basic usage
-$.Analytics('Place Service Token Here')
+$.Analytics('SERVICE_TOKEN')
 
 // Advanced usage
-$.Analytics('Token', {
+$.Analytics('SERVICE_TOKEN', {
   ... options ...
 })
 ```
 
-Done. Now every global ajax request will be logged in API Analytics.
+Done. Now every `global` ajax request will be logged in API Analytics.
 
 ## Options
 
