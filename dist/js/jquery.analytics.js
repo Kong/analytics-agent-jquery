@@ -7,8 +7,8 @@
  * Released under the MIT license
  * https://github.com/Mashape/analytics-jquery-agent/blob/master/LICENSE
  *
- * @version 1.1.0
- * @date Thu Mar 05 2015 20:02:10 GMT-0800 (PST)
+ * @version 1.1.1
+ * @date Thu Mar 12 2015 19:45:08 GMT-0700 (PDT)
  */
 
 (function (factory) {
@@ -25,7 +25,7 @@
 
   // Default Constants
   var PLUGIN_NAME = 'Analytics'
-  var PLUGIN_VERSION = '1.1.0'
+  var PLUGIN_VERSION = '1.1.1'
   var PLUGIN_AGENT_NAME = 'jQuery Analytics Agent'
   var ANALYTICS_HOST = 'http://socket.apianalytics.com/'
   var FALLBACK_IP = '127.0.0.1'
@@ -361,6 +361,8 @@
     if (!string) {
       return result
     }
+
+    pairs = string.split('&')
 
     for (var i = 0, length = pairs.length; i < length; i++) {
       var pair = pairs[i].split('=')
