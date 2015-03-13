@@ -362,6 +362,8 @@
       return result
     }
 
+    pairs = string.split('&')
+
     for (var i = 0, length = pairs.length; i < length; i++) {
       var pair = pairs[i].split('=')
       var key = pair[0]
