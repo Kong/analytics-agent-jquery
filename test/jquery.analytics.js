@@ -77,7 +77,7 @@ describe('jquery.analytics.js', function () {
   })
 
   it('should properly support sending analytics on global requests', function (done) {
-    var fixture = 'http://socket-staging.apianalytics.com/'
+    var fixture = 'socket-staging.apianalytics.com/'
 
     jQuery.Analytics('token', {
       analyticsHost: fixture,
@@ -88,7 +88,7 @@ describe('jquery.analytics.js', function () {
 
     var handler = function (event, xhr, options, data) {
       assert(options._alfRequest)
-      assert(options._alfRequest.url === fixture)
+      assert(options._alfRequest.url === 'http://' + fixture)
 
       $document.unbind('ajaxComplete', handler)
 
@@ -105,12 +105,11 @@ describe('jquery.analytics.js', function () {
 
   it('should properly create analytics log format', function (done) {
     jQuery.Analytics('token', {
-      analyticsHost: 'http://socket.apianalytics.com/',
+      analyticsHost: 'socket.apianalytics.com/',
       debug: true
     })
 
     var $document = jQuery(document)
-
     var handler = function ajaxCompleteHandler (event, xhr, options, data) {
       assert(options._alf.output.serviceToken === 'token')
       assert(options._alf.output.har)

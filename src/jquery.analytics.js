@@ -27,9 +27,10 @@
   var PLUGIN_NAME = 'Analytics'
   var PLUGIN_VERSION = '@VERSION'
   var PLUGIN_AGENT_NAME = 'jQuery Analytics Agent'
-  var ANALYTICS_HOST = 'http://socket.apianalytics.com/'
+  var ANALYTICS_HOST = 'socket.apianalytics.com/'
   var FALLBACK_IP = '127.0.0.1'
   var HTTP_VERSION = 'HTTP/1.1'
+  var PROTOCOL = 'http://'
   var TOKEN = 'SKIjLjUcjBmshb733ZqAGiNYu6Qvp1Ue0XGjsnYZRXaI8y1U4O'
   var DEBUG = false
   var READY = false
@@ -49,6 +50,7 @@
     ANALYTICS_HOST = options.analyticsHost || ANALYTICS_HOST
     HTTP_VERSION = options.httpVersion || HTTP_VERSION
     FALLBACK_IP = options.fallbackIp || FALLBACK_IP
+    PROTOCOL = options.ssl ? 'https://' : 'http://'
     DEBUG = options.debug || DEBUG
 
     // Service token
@@ -79,7 +81,7 @@
     },
 
     getServerIp: function (next) {
-      var url = 'https://statdns.p.mashape.com/' + this.hostname + '/a?mashape-key=' + TOKEN
+      var url = PROTOCOL + 'statdns.p.mashape.com/' + this.hostname + '/a?mashape-key=' + TOKEN
       var self = this
 
       if (this.fetchServerIp && typeof this.hostname === 'string' && this.hostname.length !== 0) {
@@ -106,9 +108,10 @@
 
       if (this.fetchClientIp) {
         return jQuery.ajax({
-          url: 'http://httpbin.org/ip',
+          url: PROTOCOL + 'httpbin.org/ip',
           type: 'GET',
           global: false,
+
           success: function (data) {
             self.clientIp = data.origin
           },
@@ -287,7 +290,7 @@
    */
   Plugin.Alf.prototype.send = function (options) {
     var request = {
-      url: ANALYTICS_HOST,
+      url: PROTOCOL + ANALYTICS_HOST,
       global: false,
       type: 'POST',
       data: JSON.stringify(this.output),

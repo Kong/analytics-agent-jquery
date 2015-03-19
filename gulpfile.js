@@ -15,7 +15,14 @@ function test (shouldExit) {
   var pipeline = gulp.src(tests)
 
   pipeline.pipe(mocha({
-    reporter: 'spec'
+    timeout: 10000,
+    reporter: 'spec',
+
+    phantomjs: {
+      webSecurityEnabled: false,
+      ignoreSslErrors: true,
+      sslProtocol: 'tlsv1'
+    }
   }))
 
   if (shouldExit) {

@@ -52,8 +52,14 @@ Done. Now every global ajax request will be logged in API Analytics.
 - `fallbackIp` - Fallback IP for Client / Server when not fetched, defaults to `127.0.0.1`
 - `hostname` - Server hostname, defaults to `window.location.hostname`
 - `fetchServerIp` - Flag to disable fetching server A Record, defaults to `true`
-- `fetchClientIp` - Flat to disable fetching client address, defaults to `true`
+- `fetchClientIp` - Flag to disable fetching client address, defaults to `true`
 - `debug` - Debug mode
+- `ssl` - Flag to enable SSL support, defaults to `false`
+
+### Disable analytics for request
+
+To disable analytics logging for specific requests when making an ajax request
+via jQuery set `global` option to `false`.
 
 ## Copyright and license
 
