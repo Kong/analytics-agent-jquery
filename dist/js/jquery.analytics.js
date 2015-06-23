@@ -7,16 +7,15 @@
  * Released under the MIT license
  * https://github.com/Mashape/analytics-jquery-agent/blob/master/LICENSE
  *
- * @version 1.2.0
- * @date Thu Mar 19 2015 15:44:47 GMT-0700 (PDT)
+ * @version 1.3.0
+ * @date Tue Jun 23 2015 14:24:07 GMT-0700 (PDT)
  */
 
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory)
   } else if (typeof exports === 'object') {
-    // Node/CommonJS
-    module.exports = factory(require('jquery'));
+    module.exports = factory(require('jquery'))
   } else {
     factory(jQuery)
   }
@@ -25,15 +24,21 @@
 
   // Default Constants
   var PLUGIN_NAME = 'Analytics'
-  var PLUGIN_VERSION = '1.2.0'
-  var PLUGIN_AGENT_NAME = 'jQuery Analytics Agent'
-  var ANALYTICS_HOST = 'socket.apianalytics.com/'
+  var PLUGIN_VERSION = '1.3.0'
+  var PLUGIN_AGENT_NAME = 'mashape-analytics-agent-jquery'
+  var ANALYTICS_HOST = 'socket.analytics.mashape.com/'
   var FALLBACK_IP = '127.0.0.1'
   var HTTP_VERSION = 'HTTP/1.1'
+  var ENVIRONMENT = ''
   var PROTOCOL = 'http://'
-  var TOKEN = 'SKIjLjUcjBmshb733ZqAGiNYu6Qvp1Ue0XGjsnYZRXaI8y1U4O'
+  var ALF_VERSION = '1.0.0'
+  var CLIENT_IP = FALLBACK_IP
+  var SERVER_IP = FALLBACK_IP
   var DEBUG = false
   var READY = false
+
+  // This is not a service token.
+  var TOKEN = 'SKIjLjUcjBmshb733ZqAGiNYu6Qvp1Ue0XGjsnYZRXaI8y1U4O'
 
   // Globals
   var $document = jQuery(document)
@@ -50,13 +55,13 @@
     ANALYTICS_HOST = options.analyticsHost || ANALYTICS_HOST
     HTTP_VERSION = options.httpVersion || HTTP_VERSION
     FALLBACK_IP = options.fallbackIp || FALLBACK_IP
-    PROTOCOL = options.ssl ? 'https://' : 'http://'
+    SERVER_IP = options.serverIp || FALLBACK_IP
+    CLIENT_IP = options.clientIp || FALLBACK_IP
+    PROTOCOL = options.ssl ? 'https://' : PROTOCOL
     DEBUG = options.debug || DEBUG
 
     // Service token
     this.serviceToken = token
-    this.clientIp = options.clientIp || FALLBACK_IP
-    this.serverIp = options.serverIp || FALLBACK_IP
     this.hostname = options.hostname || (window ? (window.location ? window.location.hostname : false) : false)
     this.fetchClientIp = typeof options.fetchClientIp === 'undefined' ? true : options.fetchClientIp
     this.fetchServerIp = typeof options.fetchServerIp === 'undefined' ? true : options.fetchServerIp
@@ -82,7 +87,6 @@
 
     getServerIp: function (next) {
       var url = PROTOCOL + 'statdns.p.mashape.com/' + this.hostname + '/a?mashape-key=' + TOKEN
-      var self = this
 
       if (this.fetchServerIp && typeof this.hostname === 'string' && this.hostname.length !== 0) {
         return jQuery.ajax({
@@ -91,7 +95,7 @@
           global: false,
 
           success: function (data) {
-            self.serverIp = data.answer[0].rdata
+            SERVER_IP = data.answer[0].rdata
           },
 
           complete: function () {
@@ -99,13 +103,11 @@
           }
         })
       } else {
-        return next();
+        return next()
       }
     },
 
     getClientIp: function (next) {
-      var self = this
-
       if (this.fetchClientIp) {
         return jQuery.ajax({
           url: PROTOCOL + 'httpbin.org/ip',
@@ -113,7 +115,7 @@
           global: false,
 
           success: function (data) {
-            self.clientIp = data.origin
+            CLIENT_IP = data.origin
           },
 
           complete: function () {
@@ -122,7 +124,7 @@
         })
       }
 
-      next();
+      next()
     },
 
     onReady: function () {
@@ -130,7 +132,7 @@
         return
       }
 
-      var entry;
+      var entry
 
       // System is ready to send alfs
       READY = true
@@ -159,8 +161,6 @@
     },
 
     onComplete: function (event, xhr, options, data) {
-      var self = this
-
       // Start new alf object
       var alf = new Plugin.Alf(this.serviceToken, {
         name: PLUGIN_AGENT_NAME,
@@ -214,8 +214,7 @@
       // Insert entry
       alf.entry({
         startedDateTime: new Date(start).toISOString(),
-        serverIpAddress: self.serverIp,
-        clientIpAddress: self.clientIp,
+        serverIpAddress: SERVER_IP,
         time: difference,
         request: {
           method: options.type,
@@ -223,6 +222,7 @@
           httpVersion: HTTP_VERSION,
           queryString: query,
           headers: headers,
+          cookies: [],
           headersSize: -1,
           bodySize: bodySize
         },
@@ -231,6 +231,7 @@
           statusText: xhr.statusText,
           httpVersion: HTTP_VERSION,
           headers: responseHeaders,
+          cookies: [],
           headersSize: -1,
           bodySize: responseBodySize
         },
@@ -246,7 +247,7 @@
       })
 
       if (DEBUG) {
-        options._alf = alf;
+        options._alf = alf
       }
 
       if (!READY) {
@@ -265,7 +266,10 @@
    */
   Plugin.Alf = function Alf (serviceToken, creator) {
     this.output = {
+      version: ALF_VERSION,
+      environment: ENVIRONMENT,
       serviceToken: serviceToken,
+      clientIpAddress: CLIENT_IP,
       har: {
         log: {
           version: '1.2',
@@ -416,7 +420,7 @@
    * @return {Number} Bytesize of the specified string
    */
   Plugin.getStringByteSize = function getStringByteSize (string) {
-    return encodeURI(string).split(/%(?:u[0-9A-F]{2})?[0-9A-F]{2}|./).length-1
+    return encodeURI(string).split(/%(?:u[0-9A-F]{2})?[0-9A-F]{2}|./).length - 1
   }
 
   // Export plugin
