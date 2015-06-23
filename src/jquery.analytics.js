@@ -204,13 +204,6 @@
         jQuery.extend(query, Plugin.parseQueryString(url))
       }
 
-      // Convert query to alf style
-      query = Plugin.marshalObjectToArray(query)
-
-      // Convert headers to alf style
-      headers = Plugin.marshalObjectToArray(headers)
-      responseHeaders = Plugin.marshalObjectToArray(responseHeaders)
-
       // Insert entry
       alf.entry({
         startedDateTime: new Date(start).toISOString(),
@@ -220,8 +213,8 @@
           method: options.type,
           url: options.url,
           httpVersion: HTTP_VERSION,
-          queryString: query,
-          headers: headers,
+          queryString: Plugin.marshalObjectToArray(query),
+          headers: Plugin.marshalObjectToArray(headers),
           cookies: [],
           headersSize: -1,
           bodySize: bodySize
@@ -230,10 +223,15 @@
           status: xhr.status,
           statusText: xhr.statusText,
           httpVersion: HTTP_VERSION,
-          headers: responseHeaders,
+          headers: Plugin.marshalObjectToArray(responseHeaders),
           cookies: [],
           headersSize: -1,
-          bodySize: responseBodySize
+          bodySize: responseBodySize,
+          redirectURL: Plugin.getObjectValue(responseHeaders, 'Location') || '',
+          content: {
+            mimeType: Plugin.getObjectValue(responseHeaders, 'Content-Type') || 'application/octet-stream',
+            size: responseBodySize
+          }
         },
         timings: {
           blocked: 0,
@@ -243,7 +241,8 @@
           wait: difference,
           receive: 0,
           ssl: 0
-        }
+        },
+        cache: {}
       })
 
       if (DEBUG) {
@@ -294,7 +293,7 @@
    */
   Plugin.Alf.prototype.send = function (options) {
     var request = {
-      url: PROTOCOL + ANALYTICS_HOST,
+      url: PROTOCOL + ANALYTICS_HOST + ALF_VERSION + '/single',
       global: false,
       type: 'POST',
       data: JSON.stringify(this.output),
@@ -411,6 +410,22 @@
     }
 
     return output
+  }
+
+  /**
+   * Returns the value associated with the specified key on the specified object.
+   * Should the key not exist, or the object not have data, a falsy value is returned.
+   *
+   * @param  {Object} object Specified object to check for existance of key value.
+   * @param  {String} key    Object key to obtain value for on specified object.
+   * @return {Mixed}
+   */
+  Plugin.getObjectValue = function getObjectValue (object, key) {
+    if (Object.keys(object).length) {
+      return object[key]
+    }
+
+    return null
   }
 
   /**
