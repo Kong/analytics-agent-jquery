@@ -29,7 +29,7 @@ function test (shouldExit) {
     return pipeline.on('finish', function () {
       setTimeout(function () {
         process.exit(0)
-      }, 2000);
+      }, 2000)
     })
   }
 
