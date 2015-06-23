@@ -1,5 +1,7 @@
 /*global describe, afterEach, it, assert, jQuery, sinon */
 
+var ALF_VERSION = '1.0.0'
+
 describe('jquery.analytics.js', function () {
   afterEach(function () {
     if (typeof jQuery.ajax.restore === 'function') {
@@ -90,7 +92,7 @@ describe('jquery.analytics.js', function () {
 
     var handler = function (event, xhr, options, data) {
       assert(options._alfRequest)
-      assert(options._alfRequest.url === 'http://' + fixture)
+      assert(options._alfRequest.url === 'http://' + fixture + ALF_VERSION + '/single')
 
       $document.unbind('ajaxComplete', handler)
 
@@ -115,7 +117,7 @@ describe('jquery.analytics.js', function () {
     var handler = function ajaxCompleteHandler (event, xhr, options, data) {
       assert(options._alf.output.serviceToken === 'token')
       assert(options._alf.output.environment === '')
-      assert(options._alf.output.version === '1.0.0')
+      assert(options._alf.output.version === ALF_VERSION)
       assert(options._alf.output.har)
       assert(options._alf.output.har.log)
       assert(options._alf.output.har.log.version === '1.2')
