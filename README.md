@@ -1,25 +1,22 @@
-# Mashape jQuery Analytics Agent
+# Mashape Analytics jQuery Agent
 
-[![Bower version](https://img.shields.io/bower/v/jquery-analytics.svg?style=flat)][repo]
-[![npm version](https://img.shields.io/npm/v/jquery-analytics.svg?style=flat)][npm]
-[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)][license]
-[![Build Status](https://travis-ci.org/Mashape/analytics-agent-jquery.svg)][travis]
-[![devDependency Status](https://david-dm.org/mashape/analytics-agent-jquery/dev-status.svg)][david]
+> for more information on Mashape Analytics, please visit [apianalytics.com](https://www.apianalytics.com)
+
+## About
 
 The Mashape jQuery Analytics agent reports API traffic passing through jQuery ajax calls. Works in all browsers where jQuery is supported and Node.js
-
-## Quick start
-
-- [Download the latest release][release].
-- Clone the repo: `git clone https://github.com/mashape/analytics-agent-jquery.git`.
-- Install with [Bower](http://bower.io): `bower install jquery-analytics`.
-- Install with [npm](https://www.npmjs.com): `npm install jquery-analytics`.
-- Install with [SPM](http://spmjs.io): `spm install jquery-analytics`.
 
 ## Requirements
 
 - jQuery `1.7+`
-- Mashape Analytics Service Token `SERVICE_TOKEN`
+
+## Installation
+
+- [Download the latest release](https://github.com/Mashape/analytics-agent-jquery/releases)
+- Clone the repo: `git clone https://github.com/mashape/analytics-agent-jquery.git`.
+- Install with [Bower](http://bower.io): `bower install jquery-analytics`.
+- Install with [npm](https://www.npmjs.com): `npm install jquery-analytics`.
+- Install with [SPM](http://spmjs.io): `spm install jquery-analytics`.
 
 ### What's included
 
@@ -32,7 +29,7 @@ analytics-agent-jquery/
 
 ## Usage
 
-Include `Mashape jQuery Analytics` after `jQuery`.
+Include `Mashape Analytics Agent` after `jQuery`.
 
 ```js
 // Basic usage
@@ -44,7 +41,7 @@ $.Analytics('SERVICE_TOKEN', {
 })
 ```
 
-Done. Now every `global` ajax request will be logged in API Analytics.
+Done. Now every `global` ajax request will be logged in Mashape Analytics.
 
 ## Options
 
@@ -68,11 +65,4 @@ via jQuery set `global` option to `false`.
 
 Copyright Mashape Inc, 2015.
 
-Licensed under [the MIT License][license].
-
-[npm]: https://www.npmjs.com/package/jquery-analytics
-[repo]: https://github.com/Mashape/analytics-agent-jquery
-[david]: https://david-dm.org/mashape/analytics-agent-jquery#info=devDependencies
-[travis]: https://travis-ci.org/Mashape/analytics-agent-jquery
-[release]: https://github.com/mashape/analytics-agent-jquery/releases "Download Mashape jQuery Analytics Agent"
-[license]: https://github.com/mashape/analytics-agent-jquery/blob/master/LICENSE
+Licensed under [the MIT License](https://github.com/mashape/analytics-agent-java/blob/master/LICENSE)
