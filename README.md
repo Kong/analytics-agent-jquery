@@ -67,16 +67,18 @@ Done. Now every `global` ajax request will be logged in Mashape Analytics.
 
 ## Options
 
-- `environment` - **Required** Analytics environment data is stored under, defaults to user default environment.
-- `serviceToken` - *Optional* Mashape Analytics service token, required when token is not first argument.
-- `analyticsHost` - Mashape Analytics hostname, defaults to `socket.analytics.mashape.com/`
-- `httpVersion` - HTTP Version, defaults to `HTTP/1.1`
-- `fallbackIp` - Fallback IP for Client / Server when not fetched, defaults to `127.0.0.1`
-- `hostname` - Server hostname, defaults to `window.location.hostname`
-- `fetchServerIp` - Flag to disable fetching server A Record, defaults to `true`
-- `fetchClientIp` - Flag to disable fetching client address, defaults to `true`
-- `debug` - Debug mode
-- `ssl` - Flag to enable SSL support, defaults to `false`
+| Option          | Description                                                                       | Required      | Default |
+| --------------- | --------------------------------------------------------------------------------- | ------------- | ------------------------------ |
+|`serviceToken`   | Mashape Analytics service token, *required when token is not first argument*.     | **Required**  | `-`                            |
+|`environment`    | Analytics environment data is stored under                                        | *Optional*    | `-`                            |
+|`analyticsHost`  | Mashape Analytics hostname,                                                       | *Optional*    | `socket.analytics.mashape.com` |
+|`httpVersion`    | HTTP Version                                                                      | *Optional*    | `HTTP/1.1`                     |
+|`fallbackIp`     | Fallback IP for Client / Server when not fetched                                  | *Optional*    | `127.0.0.1`                    |
+|`hostname`       | Server hostname                                                                   | *Optional*    | `window.location.hostname`     |
+|`fetchServerIp`  | Flag to disable fetching server A Record                                          | *Optional*    | `true`                         |
+|`fetchClientIp`  | Flag to disable fetching client address                                           | *Optional*    | `true`                         |
+|`debug`          | Debug mode                                                                        | *Optional*    | `false`                        |
+|`ssl`            | Flag to enable SSL support                                                        | *Optional*    | `false`                        |
 
 ### Disable analytics for request
 
