@@ -14,21 +14,25 @@ The Mashape jQuery Analytics agent reports API traffic passing through jQuery aj
 
 - [Download the latest release](https://github.com/Mashape/analytics-agent-jquery/releases)
 - Clone the repo
+
   ```bash
   $ git clone https://github.com/mashape/analytics-agent-jquery.git
   ```
 
 - Install with [Bower](http://bower.io) 
+
   ```bash
   $ bower install jquery-analytics
   ```
 
 - Install with [npm](https://www.npmjs.com)
+
   ```bash
   $ npm install jquery-analytics
   ```
 
 - Install with [SPM](http://spmjs.io)
+
   ```bash
   spm install jquery-analytics
   ```
